@@ -36,4 +36,4 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
 7. You should find two more new files in the folder, respectively *groups.csv* for the comp grouping and *judge.csv* for their judge duty.
 
 ## Notice
-I suck at programming. If you've find any bugs, please report them at the *issue* section, or make a pull request if you're kind enough to do so.
+I suck at programming. If you've found any bugs, please report them at the *issue* section, or make a pull request if you're kind enough to do so.
