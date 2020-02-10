@@ -34,16 +34,6 @@ def web2csv(Name=''):
         os.chdir(Name)
     frame.to_csv('general.csv', index=False)
     pd.DataFrame(columns=['項目', '組數', '是否與下個賽程重疊(有的話請輸入1)', 'NOTE: 如果有重疊賽程的話，請把費時項目放在快速項目上面']).to_csv('schedule.csv', index=False)
-    with open('README.txt', 'w') as f:
-        f.write("""==========
-README
-==========
-so yeah, this is the readme file.
-算了懶得用英文了。if there's anyone who doesn't know Chinese but still want to try this out, contact @aoaaceai at Telegram or Discord.
-general.csv是基本上的分組
-schedule.csv是賽程表，因為我很懶，暫時不想讓他自己讀取，所以就手動輸入吧
-如果要打亂的人不在參賽名單內，可以自己加編號上去
-enjoy.""")
     return Name
 
 if __name__=='__main__':
