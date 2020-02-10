@@ -2,11 +2,11 @@ import pandas as pd
 import os
 import numpy as np
 import random
-os.chdir(input('請輸入cubingTW上的比賽英文名:'))
+os.chdir(input('input the comp name on CubingTW:'))
 gen=pd.read_csv('general.csv')
 jud=pd.DataFrame(columns=gen.columns)
-jud['編號']=gen['編號']
-jud['姓名']=gen['姓名']
+jud['index']=gen['index']
+jud['name']=gen['name']
 schedule=pd.read_csv('schedule.csv')
 GROUPNAMES=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 class person:
@@ -27,21 +27,29 @@ non_newbie={'main':[]}
 prev_overlap=False
 sch=[]
 group_dict={}
+alias={'333': '3x3x3 Cube', '222': '2x2x2 Cube', '444': '4x4x4 Cube', '555': '5x5x5 Cube', '666':'6x6x6 Cube', 
+'777':'7x7x7 Cube','3x3x3 Cube':'3x3x3 Cube','2x2x2 Cube':'2x2x2 Cube','4x4x4 Cube':'4x4x4 Cube','5x5x5 Cube':'5x5x5 Cube',
+'6x6x6 Cube':'6x6x6 Cube','7x7x7 Cube':'7x7x7 Cube', '3x3x3 Blindfolded':'3x3x3 Blindfolded', '3bld':'3x3x3 Blindfolded',
+'4x4x4 Blindfolded':'4x4x4 Blindfolded', '4bld':'4x4x4 Blindfolded', '5x5x5 Blindfolded':'5x5x5 Blindfolded', '5bld':'5x5x5 Blindfolded',
+'Square-1':'Square-1', 'sq':'Square-1', 'Pyraminx':'Pyraminx', 'pyra':'Pyraminx', 'Megaminx':'Megaminx', 'mega':'Megaminx', 
+'Skewb':'Skewb','sk':'Skewb', 'Clock':'Clock', 'clock':'Clock', '3x3x3 Multi-Blind':'3x3x3 Multi-Blind', 'mbld':'3x3x3 Multi-Blind', 
+'3x3x3 Fewest Moves':'3x3x3 Fewest Moves', 'fmc':'3x3x3 Fewest Moves', '3x3x3 One-Handed':'3x3x3 One-Handed', 'oh':'3x3x3 One-Handed'}
 for i in schedule.index:
+    schedule['event'][i]=alias[schedule['event'][i]]
     if prev_overlap:
-        sch[-1]=(schedule.項目[i-1], schedule.項目[i])
+        sch[-1]=(schedule['event'][i-1], schedule['event'][i])
     else:
-        sch.append(schedule.項目[i])
-    group_dict[schedule.項目[i]]=int(schedule.組數[i])
-    if schedule['是否與下個賽程重疊(有的話請輸入1)'][i]==1:
+        sch.append(schedule['event'][i])
+    group_dict[schedule['event'][i]]=int(schedule['groupcount'][i])
+    if schedule['overlaps with the next event (if so, type "1")'][i]==1:
         prev_overlap=True
     else:
         prev_overlap=False
 for i in gen.index:
     people.append(person())
     p=people[-1]
-    p.id=gen.編號[i]
-    p.name=gen.姓名[i]
+    p.id=gen['index'][i]
+    p.name=gen['name'][i]
     event=[]
     for e in events:
         if gen[e][i]==1:
@@ -53,8 +61,8 @@ for i in gen.index:
         p.group[e]=-1
         p.judge[e]=[]
     p.event=event
-    p.newbie=gen.新手[i]==1
-    jud.新手[i]=gen.新手[i]
+    p.newbie=gen['newbie'][i]==1
+    jud['newbie'][i]=gen['newbie'][i]
     if not p.newbie:
         non_newbie['main'].append(p)
     p.inner_id=i
@@ -175,6 +183,5 @@ for e in sch:
                                 unlucky[e1].append(kid)
                                 break
         fill_judge(e2, overlap=e1)
-with pd.ExcelWriter('final.xlsx') as writer:
-    gen.to_excel(writer, sheet_name='general', index=False)
-    jud.to_excel(writer, sheet_name='judge', index=False)
+gen.to_csv('groups.csv', index=False)
+jud.to_csv('judge.csv', index=False)

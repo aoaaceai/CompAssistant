@@ -1,12 +1,22 @@
 import numpy as np
 import requests
 import pandas as pd
-import textsearch
 import os
 from bs4 import BeautifulSoup as BS
+def search(string,start="", end=""):
+    lstart=len(start)
+    lend=len(end)
+    startpoint=endpoint=0
+    for i in range(len(string)):
+        if string[i:i+lstart]==start:
+            startpoint=i+lstart
+    for i in range(len(string)-lend, startpoint, -1):
+        if string[i:i+lend]==end:
+            endpoint=i
+    return string[startpoint:endpoint]
 def web2csv(Name=''):
     if Name=='':
-        Name=input('請輸入CubingTW的比賽英文名')
+        Name=input('input the comp name on CubingTW:')
     pre_url='https://cubing-tw.net/event/'+Name
     pre=requests.get(pre_url+'/competitors')
     presp=BS(pre.text,'html.parser')
@@ -15,35 +25,25 @@ def web2csv(Name=''):
     for th in pre_list:
         result=th.find('span')
         if result!=None:
-            event_list.append(textsearch.search(str(result), 'title="', '"'))
+            event_list.append(search(str(result), 'title="', '"'))
     pre_list=presp.find('table').find('tbody').find_all('tr')
-    frame=pd.DataFrame(np.empty((len(pre_list), len(event_list)+3), dtype=object), columns=['編號', '姓名', '新手']+event_list)
+    frame=pd.DataFrame(np.empty((len(pre_list), len(event_list)+3), dtype=object), columns=['index', 'name', 'newbie']+event_list)
     for index, competitor in enumerate(pre_list):
         competitor=competitor.find_all('td')
-        frame['編號'][index]=int(competitor[0].text)
-        frame['姓名'][index]=competitor[1].text
+        frame['index'][index]=int(competitor[0].text)
+        frame['name'][index]=competitor[1].text
         for i, event in enumerate(competitor[5:]):
             if '-' not in event.text:
                 frame[event_list[i]][index]=1
         if competitor[2].text=="":
-            frame['新手'][index]=1
+            frame['newbie'][index]=1
     try:
         os.chdir(Name)
     except FileNotFoundError:
         os.mkdir(Name)
         os.chdir(Name)
     frame.to_csv('general.csv', index=False)
-    pd.DataFrame(columns=['項目', '組數', '是否與下個賽程重疊(有的話請輸入1)', 'NOTE: 如果有重疊賽程的話，請把費時項目放在快速項目上面']).to_csv('schedule.csv', index=False)
-    with open('README.txt', 'w') as f:
-        f.write("""==========
-README
-==========
-so yeah, this is the readme file.
-算了懶得用英文了。if there's anyone who doesn't know Chinese but still want to try this out, contact @aoaaceai at Telegram or Discord.
-general.csv是基本上的分組
-schedule.csv是賽程表，因為我很懶，暫時不想讓他自己讀取，所以就手動輸入吧
-如果要打亂的人不在參賽名單內，可以自己加編號上去
-enjoy.""")
+    pd.DataFrame(columns=['event', 'groupcount', 'overlaps with the next event (if so, type "1")', 'NOTE: If two events overlap, the time-consuming one should be on top of the faster one.']).to_csv('schedule.csv', index=False)
     return Name
 
 if __name__=='__main__':
