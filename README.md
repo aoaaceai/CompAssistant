@@ -11,7 +11,7 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
     - bs4
 
 ## Using this tool
-1. Find the *English* name of the comp at [CubingTW](https://cubing-tw.net). For example, *2019CKCubingParty* for *Chien Kuo Cubing Party 2019*. Go to "cubing-tw.net/event/*COMP_NAME*" to check if the name is correct.
+1. Find the *English* name of the comp at [CubingTW](https://cubing-tw.net). For example, *2019CKCubingParty* for *Chien Kuo Cubing Party 2019*. If the name is correct, you should see the info page of that comp at cubing-tw.net/event/*COMP_NAME*.
 2. Run [Web2csv.py](./Web2csv.py) and paste the comp name if it asks to.
 3. You should find a new folder created, containing *general.csv* and *schedule.csv*.
 4. in *schedule.csv*, type in the schedule of that comp. Make sure you follow the instructions in that file. the  alias of some event names are listed below:
