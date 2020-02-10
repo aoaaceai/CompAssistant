@@ -175,6 +175,6 @@ for e in sch:
                                 unlucky[e1].append(kid)
                                 break
         fill_judge(e2, overlap=e1)
-with pd.ExcelWriter('final.xlsx') as writer:
-    gen.to_excel(writer, sheet_name='general', index=False)
-    jud.to_excel(writer, sheet_name='judge', index=False)
+
+gen.to_csv('group.csv', index=False)
+jud.to_csv('judge.csv', index=False)
