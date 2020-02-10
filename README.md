@@ -14,7 +14,7 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
 1. Find the *English* name of the comp at [CubingTW](https://cubing-tw.net). For example, *2019CKCubingParty* for *Chien Kuo Cubing Party 2019*. If the name is correct, you should see the info page of that comp at [cubing-tw.net/event/](https://cubing-tw.net/event/)*COMP_NAME*.
 2. Run [Web2csv.py](./Web2csv.py) and paste the comp name if it asks to.
 3. You should find a new folder created, containing *general.csv* and *schedule.csv*.
-4. in *schedule.csv*, type in the schedule of that comp. Make sure you follow the instructions in that file. the  alias of some event names are listed below:
+4. in *schedule.csv*, type in the schedule of that comp. Make sure you follow the instructions in that file. Aliases of some event names are listed below:
 
 
     | Event name | alias |
@@ -28,7 +28,7 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
     | 3x3x3 Multi-Blind | mbld|
     | 3x3x3 Fewest Moves | fmc|
     | 3x3x3 One-Handed | oh|
-    | 3x3x3 With Feet | **FEET IS NO LONGER AN EVENT**|
+    | 3x3x3 With Feet | **FEET IS NO LONGER AN EVENT :(**|
     | Clock | clock | 
     
 5. In *general.csv*, you can decide whether a competitor will become a judge or not. Since only the non-newbies will be the judges, comp organizers and delegates can be viewed as a newbie. Just set their *newbie* value to 1. Also, if a newbie is familliar with the regulations and willing to be a judge, set their *newbie* value to nothing.
