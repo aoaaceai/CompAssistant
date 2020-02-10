@@ -2,13 +2,14 @@ import pandas as pd
 import os
 import numpy as np
 import random
+from string import ascii_uppercase as GROUPNAMES
 os.chdir(input('請輸入cubingTW上的比賽英文名:'))
 gen=pd.read_csv('general.csv')
 jud=pd.DataFrame(columns=gen.columns)
 jud['編號']=gen['編號']
 jud['姓名']=gen['姓名']
 schedule=pd.read_csv('schedule.csv')
-GROUPNAMES=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+GROUPNAMES=list(GROUPNAMES)
 class person:
     def __init__(self, id='0', name='example', event=[], newbie=True, inner_id=0):
         self.id=id
