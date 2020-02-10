@@ -4,7 +4,7 @@ An automatic grouping system that assigns everyone's group and judges for cubing
 Currently works for Taiwanese comps since it grabs data from [CubingTW](https://cubing-tw.net). But if you already have data from competitors, [main.py](./main.py) can still do its job.
 
 ## Requirements
-- python3 with the following modules installed:
+- python3 with the following packages installed:
     - numpy
     - pandas
     - requests
