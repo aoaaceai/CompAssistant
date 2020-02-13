@@ -46,7 +46,10 @@ def web2csv(Name=''):
         frame['name'][index]=competitor[1].text
         for i, event in enumerate(competitor[5:]):
             if '-' not in event.text:
-                frame[event_list[i]][index]=1
+                try:
+                    frame[event_list[i]][index]=1
+                except IndexError: #if the registration isn't closed, another column will be added, causing this error
+                    pass
         if competitor[2].text=="":
             frame['newbie'][index]=1
     chd('comps/'+Name)
