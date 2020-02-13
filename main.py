@@ -29,14 +29,14 @@ prev_overlap=False
 sch=[]
 group_dict={}
 alias={'333': '3x3x3 Cube', '222': '2x2x2 Cube', '444': '4x4x4 Cube', '555': '5x5x5 Cube', '666':'6x6x6 Cube', 
-'777':'7x7x7 Cube','3x3x3 Cube':'3x3x3 Cube','2x2x2 Cube':'2x2x2 Cube','4x4x4 Cube':'4x4x4 Cube','5x5x5 Cube':'5x5x5 Cube',
-'6x6x6 Cube':'6x6x6 Cube','7x7x7 Cube':'7x7x7 Cube', '3x3x3 Blindfolded':'3x3x3 Blindfolded', '3bld':'3x3x3 Blindfolded',
-'4x4x4 Blindfolded':'4x4x4 Blindfolded', '4bld':'4x4x4 Blindfolded', '5x5x5 Blindfolded':'5x5x5 Blindfolded', '5bld':'5x5x5 Blindfolded',
-'Square-1':'Square-1', 'sq':'Square-1', 'Pyraminx':'Pyraminx', 'pyra':'Pyraminx', 'Megaminx':'Megaminx', 'mega':'Megaminx', 
-'Skewb':'Skewb','sk':'Skewb', 'Clock':'Clock', 'clock':'Clock', '3x3x3 Multi-Blind':'3x3x3 Multi-Blind', 'mbld':'3x3x3 Multi-Blind', 
-'3x3x3 Fewest Moves':'3x3x3 Fewest Moves', 'fmc':'3x3x3 Fewest Moves', '3x3x3 One-Handed':'3x3x3 One-Handed', 'oh':'3x3x3 One-Handed'}
+'777':'7x7x7 Cube','3x3x3 cube':'3x3x3 Cube','2x2x2 cube':'2x2x2 Cube','4x4x4 cube':'4x4x4 Cube','5x5x5 cube':'5x5x5 Cube',
+'6x6x6 cube':'6x6x6 Cube','7x7x7 cube':'7x7x7 Cube', '3x3x3 blindfolded':'3x3x3 Blindfolded', '3bld':'3x3x3 Blindfolded',
+'4x4x4 blindfolded':'4x4x4 Blindfolded', '4bld':'4x4x4 Blindfolded', '5x5x5 blindfolded':'5x5x5 Blindfolded', '5bld':'5x5x5 Blindfolded',
+'square-1':'Square-1', 'sq':'Square-1', 'pyraminx':'Pyraminx', 'pyra':'Pyraminx', 'megaminx':'Megaminx', 'mega':'Megaminx', 
+'skewb':'Skewb','sk':'Skewb', 'clock':'Clock', '3x3x3 multi-Blind':'3x3x3 Multi-Blind', 'mbld':'3x3x3 Multi-Blind', 
+'3x3x3 fewest moves':'3x3x3 Fewest Moves', 'fmc':'3x3x3 Fewest Moves', '3x3x3 one-handed':'3x3x3 One-Handed', 'oh':'3x3x3 One-Handed'}
 for i in schedule.index:
-    schedule['event'][i]=alias[schedule['event'][i]]
+    schedule['event'][i]=alias[schedule['event'][i].lower()]
     if prev_overlap:
         sch[-1]=(schedule['event'][i-1], schedule['event'][i])
     else:
