@@ -29,8 +29,8 @@ def chd(name):
 def web2csv(Name=''):
     if Name=='':
         Name=input('input the comp name on CubingTW:')
-    pre_url='https://cubing-tw.net/event/'+Name
-    pre=requests.get(pre_url+'/competitors')
+    pre_url='https://cubing-tw.net/event/'+Name+'/competitors'
+    pre=requests.get(pre_url)
     presp=BS(pre.text,'html.parser')
     pre_list=presp.find('table').find('tfoot').find_all('tr')[1].find_all('th')
     event_list=[]
