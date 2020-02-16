@@ -29,7 +29,7 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
     | 3x3x3 Fewest Moves | fmc|
     | 3x3x3 One-Handed | oh|
     | 3x3x3 With Feet | **FEET IS NO LONGER AN EVENT :(**|
-    | Clock | clock | 
+    | Clock | *I ran out of alias ideas* | 
     
 5. In *general.csv*, you can decide whether a competitor will become a judge or not. Since only the non-newbies will be the judges, comp organizers and delegates can be viewed as a newbie. Just set their *newbie* value to 1. Also, if a newbie is familliar with the regulations and willing to be a judge, set their *newbie* value to nothing.
 6. Run [main.py](./main.py), and paste the comp name if it asks to.
