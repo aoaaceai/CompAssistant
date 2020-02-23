@@ -39,7 +39,3 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
 
 ## Notice
 I suck at programming. If you've found any bugs, please report them at the *issue* section, or make a pull request if you're kind enough to do so.
-
-
-## To do
-- Grab data from the WCA website.
