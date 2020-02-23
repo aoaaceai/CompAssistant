@@ -1,7 +1,7 @@
 CompAssistant
 =
 An automatic grouping system that assigns everyone's group and judges for cubing comps. 
-Currently works for Taiwanese comps since it grabs data from [CubingTW](https://cubing-tw.net). But if you already have the data from the competitors, [main.py](./main.py) can still do its job.
+Since it grabs data from the WCA website or [CubingTW](https://cubing-tw.net/). Competitions without competitor information listed in the above websites aren't supported by [Web2csv.py](./Web2csv.py). But if you already have the data from the competitors, [main.py](./main.py) can still do its job.
 
 ## Requirements
 - python3 with the following packages installed:
@@ -39,7 +39,3 @@ Currently works for Taiwanese comps since it grabs data from [CubingTW](https://
 
 ## Notice
 I suck at programming. If you've found any bugs, please report them at the *issue* section, or make a pull request if you're kind enough to do so.
-
-
-## To do
-- Grab data from the WCA website.
