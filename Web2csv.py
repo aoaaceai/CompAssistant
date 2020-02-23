@@ -25,10 +25,15 @@ def _cd(name):
 def chd(name):
     for i in name.split('/'):
         _cd(i)
+def savefile(Name, frame):
+    chd('comps/'+Name)
+    frame.to_csv('general.csv', index=False)
+    pd.DataFrame(columns=['event', 'groupcount', 'overlaps with the next event (if so, type "1")', 'NOTE: If two events overlap, the time-consuming one should be on top of the faster one.']).to_csv('schedule.csv', index=False)
 
-def web2csv(Name=''):
+        
+def cubingTW(Name=''):
     if Name=='':
-        Name=input('input the comp name on CubingTW:')
+        Name=input('input the comp name on the cubingTW:')
     pre_url='https://cubing-tw.net/event/'+Name+'/competitors'
     pre=requests.get(pre_url)
     presp=BS(pre.text,'html.parser')
@@ -52,10 +57,34 @@ def web2csv(Name=''):
                     pass
         if competitor[2].text=="":
             frame['newbie'][index]=1
-    chd('comps/'+Name)
-    frame.to_csv('general.csv', index=False)
-    pd.DataFrame(columns=['event', 'groupcount', 'overlaps with the next event (if so, type "1")', 'NOTE: If two events overlap, the time-consuming one should be on top of the faster one.']).to_csv('schedule.csv', index=False)
+    savefile(Name, frame)
     return Name
-
+def WCA(Name=''):
+    if Name=='':
+        Name=input('input the comp name on the WCA site:')
+    pre_url='https://www.worldcubeassociation.org/competitions/'+Name+'/registrations'
+    pre=requests.get(pre_url)
+    presp=BS(pre.text,'html.parser')
+    pre=presp.find('table')
+    head=pre.find('thead').find_all('span')
+    competitors=pre.find('tbody').find_all('tr')
+    event_list=[]
+    for i in head:
+        event_list.append(i.attrs['title'])
+    emp_list=np.empty((len(competitors), len(event_list)+3), dtype=object)
+    frame=pd.DataFrame(emp_list, columns=['id', 'name', 'newbie']+event_list)
+    for index, competitor in enumerate(competitors):
+        competitor=competitor.find_all('td')
+        name=competitor[0]
+        if len(name.find_all('a'))==0:
+            frame['newbie'][index]=1
+        frame['name'][index]=name.text.strip()
+        frame['id'][index]=index+1
+        for i, event in enumerate(competitor[2:-2]):
+            if len(event.find_all('span'))==0:
+                continue
+            frame[event_list[i]][index]=1
+    savefile(Name, frame)
+    return Name
 if __name__=='__main__':
-    web2csv()
+    WCA()
