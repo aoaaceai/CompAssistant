@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import os
 from bs4 import BeautifulSoup as BS
+
+
 def search(string,start="", end=""):
     lstart=len(start)
     lend=len(end)
@@ -14,11 +16,21 @@ def search(string,start="", end=""):
         if string[i:i+lend]==end:
             endpoint=i
     return string[startpoint:endpoint]
+
+def _cd(name):
+    if not os.path.isdir(name):
+        os.mkdir(name)
+    os.chdir(name)
+
+def chd(name):
+    for i in name.split('/'):
+        _cd(i)
+
 def web2csv(Name=''):
     if Name=='':
         Name=input('input the comp name on CubingTW:')
-    pre_url='https://cubing-tw.net/event/'+Name
-    pre=requests.get(pre_url+'/competitors')
+    pre_url='https://cubing-tw.net/event/'+Name+'/competitors'
+    pre=requests.get(pre_url)
     presp=BS(pre.text,'html.parser')
     pre_list=presp.find('table').find('tfoot').find_all('tr')[1].find_all('th')
     event_list=[]
@@ -34,14 +46,13 @@ def web2csv(Name=''):
         frame['name'][index]=competitor[1].text
         for i, event in enumerate(competitor[5:]):
             if '-' not in event.text:
-                frame[event_list[i]][index]=1
+                try:
+                    frame[event_list[i]][index]=1
+                except IndexError: #if the registration isn't closed, another column will be added, causing this error
+                    pass
         if competitor[2].text=="":
             frame['newbie'][index]=1
-    try:
-        os.chdir(Name)
-    except FileNotFoundError:
-        os.mkdir(Name)
-        os.chdir(Name)
+    chd('comps/'+Name)
     frame.to_csv('general.csv', index=False)
     pd.DataFrame(columns=['event', 'groupcount', 'overlaps with the next event (if so, type "1")', 'NOTE: If two events overlap, the time-consuming one should be on top of the faster one.']).to_csv('schedule.csv', index=False)
     return Name
